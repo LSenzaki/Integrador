@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+face_recognition
+opencv-python
+sqlalchemy
+pydantic
+python-multipart 
+dlib
