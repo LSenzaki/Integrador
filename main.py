@@ -2,5 +2,5 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-
-#Para rodar, executar no terminarl -> uvicorn main:app --reload
+from auth_routes import auth_router
+# Para rodar, executar no terminarl -> uvicorn main:app --reload
