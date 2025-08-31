@@ -1,7 +1,8 @@
 PROJETO DE RECONHECIMENTO FACIAL DOS ALUNOS DO BIOPARK
 
 OBJETIVO
-O objetivo é conseguir integrar um sistema automático de reconheciment odos alunos com o sistema usado pelos professores para automatizar o regiustro de presença dos alunos.
+O objetivo é conseguir integrar um sistema automático de reconhecimento dos alunos com o sistema usado pelos professores para automatizar o 
+registro de presença dos alunos.
 
 BIBLIOTECAS
 Face Recognition
