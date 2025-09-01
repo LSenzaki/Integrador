@@ -1,29 +1,31 @@
-from fastapi import APIRouter, UploadFile, Form
-import sqlite3
-import json
+from fastapi import APIRouter, UploadFile, Form, Depends, HTTPException
+from sqlalchemy.orm import Session
 from app.services.face_service import get_face_encoding
+from app.models.db_session import get_db
+import json
+from app.models import db_models
+    
 
 router = APIRouter(prefix="/students", tags=["students"])
 
-def get_db():
-    conn = sqlite3.connect("chamada.db")
-    conn.execute("""CREATE TABLE IF NOT EXISTS pessoas (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        nome TEXT,
-                        embedding TEXT,
-                        check_professor INTEGER DEFAULT 0
-                    )""")
-    return conn
+@router.post("/cadastrar")
+async def cadastrar(nome: str = Form(...), foto: UploadFile = None, db: Session = Depends(get_db)):
+    if not foto:
+        raise HTTPException(status_code=400, detail="Imagem obrigatória")
 
-@router.post("/cadastrar/")
-async def cadastrar(nome: str = Form(...), foto: UploadFile = None):
     encoding = get_face_encoding(await foto.read())
     if not encoding:
-        return {"erro": "Nenhum rosto detectado"}
+        raise HTTPException(status_code=400, detail="Nenhum rosto detectado")
 
-    conn = get_db()
-    conn.execute("INSERT INTO pessoas (nome, embedding) VALUES (?, ?)",
-                 (nome, json.dumps(encoding)))
-    conn.commit()
-    conn.close()
-    return {"mensagem": f"{nome} cadastrado com sucesso!"}
+    aluno = db_models.Pessoa(nome=nome, embedding=json.dumps(encoding))
+    db.add(aluno)
+    db.commit()
+    db.refresh(aluno)
+
+    return {"mensagem": f"{nome} cadastrado com sucesso!", "id": aluno.id}
+
+
+@router.get("/listar")
+def listar_alunos(db: Session = Depends(get_db)):
+    alunos = db.query(db_models.Pessoa).all()
+    return

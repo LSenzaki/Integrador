@@ -1,33 +1,27 @@
-from fastapi import APIRouter, UploadFile
-import sqlite3
-import json
+from fastapi import APIRouter, UploadFile, HTTPException, Depends
+from sqlalchemy.orm import Session
 from app.services.face_service import get_face_encoding, compare_encodings
+from app.models.db_session import get_db
+import json
+from app.models import db_models
 
 router = APIRouter(prefix="/faces", tags=["faces"])
 
-def get_db():
-    conn = sqlite3.connect("chamada.db")
-    return conn
-
-@router.post("/reconhecer/")
-async def reconhecer(foto: UploadFile):
+@router.post("/reconhecer")
+async def reconhecer(foto: UploadFile, db: Session = Depends(get_db)):
     encoding = get_face_encoding(await foto.read())
     if not encoding:
-        return {"erro": "Nenhum rosto detectado"}
+        raise HTTPException(status_code=400, detail="Nenhum rosto detectado")
 
-    conn = get_db()
-    cursor = conn.execute("SELECT id, nome, embedding FROM pessoas")
-    pessoas = cursor.fetchall()
-    conn.close()
+    pessoas = db.query(db_models.Pessoa).all()
+    if not pessoas:
+        return {"mensagem": "Nenhum aluno cadastrado"}
 
     resultados = []
-    for pid, nome, emb_str in pessoas:
-        emb = json.loads(emb_str)
+    for p in pessoas:
+        emb = json.loads(p.embedding)
         sim = compare_encodings(emb, encoding)
-        resultados.append({"id": pid, "nome": nome, "similaridade": sim})
+        resultados.append({"id": p.id, "nome": p.nome, "similaridade": sim, "check_professor": p.check_professor})
 
-    if resultados:
-        resultados = sorted(resultados, key=lambda x: x["similaridade"], reverse=True)
-        return {"mais_provavel": resultados[0], "todos": resultados}
-    else:
-        return {"mensagem": "Nenhum usuário cadastrado"}
+    resultados = sorted(resultados, key=lambda x: x["similaridade"], reverse=True)
+    return {"mais_provavel": resultados[0], "todos": resultados}
