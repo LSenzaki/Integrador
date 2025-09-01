@@ -1,3 +1,15 @@
+"""
+main.py
+--------
+Arquivo principal da aplicação FastAPI.
+
+Responsável por:
+- Criar a instância FastAPI
+- Configurar middlewares (CORS)
+- Incluir os routers de students e faces
+- Executar o servidor (uvicorn) no modo debug/reload
+"""
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers import students, faces
