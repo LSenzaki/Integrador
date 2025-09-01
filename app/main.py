@@ -12,7 +12,7 @@ Responsável por:
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import students, faces
+from app.routers import students, faces, webcam
 from app.models import db_models
 from app.models.db_session import get_db
 
@@ -28,6 +28,7 @@ app.add_middleware(
 
 app.include_router(students.router)
 app.include_router(faces.router)
+app.include_router(webcam.router) 
 
 if __name__ == "__main__":
     import uvicorn
