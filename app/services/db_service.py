@@ -1,3 +1,19 @@
+"""
+db_services.py
+--------------
+
+Este módulo contém as funções responsáveis por **interagir diretamente com o banco de dados**
+através da sessão do SQLAlchemy. Ele atua como a camada de serviços (CRUD), separando a lógica
+de manipulação de dados da lógica de roteamento (FastAPI).
+
+Responsável por:
+- Criar, ler, atualizar e excluir registros no banco de dados (operações CRUD).
+- Encapsular a lógica de consultas SQLAlchemy para manter os routers mais limpos.
+- Fornecer funções reutilizáveis que podem ser chamadas em diferentes partes da aplicação.
+
+
+"""
+
 import os
 from dataclasses import dataclass
 from typing import Iterable, List, Optional
