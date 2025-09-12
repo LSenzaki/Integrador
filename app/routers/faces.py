@@ -14,6 +14,7 @@ from app.services.face_service import get_face_encoding, compare_encodings
 from app.models.db_session import get_db
 import json
 from app.models import db_models
+import numpy as np 
 
 router = APIRouter(prefix="/faces", tags=["faces"])
 
@@ -30,9 +31,10 @@ async def reconhecer(foto: UploadFile, db: Session = Depends(get_db)):
     - Mais provável aluno correspondente
     - Lista de todos os alunos com similaridade
     """
-    encoding = get_face_encoding(await foto.read())
-    if not encoding:
-        raise HTTPException(status_code=400, detail="Nenhum rosto detectado")
+    encoding = get_face_encoding(foto)
+    # Verifica se retornou None ou array vazio
+    if encoding is None or (isinstance(encoding, np.ndarray) and encoding.size == 0):
+        raise HTTPException(status_code=400, detail="Nenhum rosto detectado na imagem enviada")
 
     pessoas = db.query(db_models.Pessoa).all()
     if not pessoas:
@@ -40,7 +42,7 @@ async def reconhecer(foto: UploadFile, db: Session = Depends(get_db)):
 
     resultados = []
     for p in pessoas:
-        emb = json.loads(p.embedding)
+        emb = np.array(json.loads(p.embedding))
         sim = compare_encodings(emb, encoding)
         resultados.append({"id": p.id, "nome": p.nome, "similaridade": sim, "check_professor": p.check_professor})
 
