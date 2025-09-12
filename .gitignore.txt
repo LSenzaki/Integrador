@@ -1,2 +1,5 @@
-#ignorar os venv
+#ignorar os Ambientes virtuais
 .venv311
+.venv
+venv/
+env/
