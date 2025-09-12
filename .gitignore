@@ -1,7 +1,1 @@
 /.venv311
-/app
-/app
-app/models/__pycache__/db_session.cpython-311.pyc
-app/models/__pycache__/db_models.cpython-311.pyc
-app/routers/__pycache__/students.cpython-311.pyc
-app/services/__pycache__/face_service.cpython-311.pyc
