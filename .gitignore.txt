@@ -1,2 +1,2 @@
 #ignorar os venv
-venv311
+.venv311
