@@ -9,20 +9,24 @@ Funcionalidades:
 """
 import face_recognition
 import numpy as np
+from fastapi import UploadFile
 from PIL import Image
-import io
 
-def get_face_encoding(file_bytes: bytes):
+
+def get_face_encoding(file: UploadFile):
     """
     Retorna o embedding facial de uma imagem.
     Se não encontrar rosto, retorna None.
     """
-    img = Image.open(io.BytesIO(file_bytes))
-    img = np.array(img)
-    encodings = face_recognition.face_encodings(img)
-    if not encodings:
-        return None
-    return encodings[0].tolist()
+    img = Image.open(file.file)
+
+    image_np = np.array(img)
+
+    encodings = face_recognition.face_encodings(image_np)
+    if len(encodings) > 0:
+        return encodings[0]  # retorna o primeiro rosto detectado
+    return None
+
 
 def compare_encodings(enc1, enc2):
     """

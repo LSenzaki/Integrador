@@ -34,11 +34,14 @@ async def cadastrar(nome: str = Form(...), foto: UploadFile = None, db: Session 
     if not foto:
         raise HTTPException(status_code=400, detail="Imagem obrigatória")
 
-    encoding = get_face_encoding(await foto.read())
-    if not encoding:
+    encoding = get_face_encoding(foto)
+    if encoding is None:
         raise HTTPException(status_code=400, detail="Nenhum rosto detectado")
 
-    aluno = db_models.Pessoa(nome=nome, embedding=json.dumps(encoding))
+    aluno = db_models.Pessoa(
+        nome=nome,
+        embedding=json.dumps(encoding.tolist())  # <- aqui o ajuste
+    )
     db.add(aluno)
     db.commit()
     db.refresh(aluno)
