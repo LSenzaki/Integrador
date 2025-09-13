@@ -1,7 +1,8 @@
 """
 face_service.py
 ---------------
-Funções auxiliares para processamento facial usando a biblioteca face_recognition.
+Funções auxiliares para processamento facial usando a biblioteca 
+face_recognition.
 
 Funcionalidades:
 - get_face_encoding: retorna o embedding do rosto a partir de uma imagem

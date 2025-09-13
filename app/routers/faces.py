@@ -12,14 +12,16 @@ from fastapi import APIRouter, UploadFile, HTTPException, Depends
 from sqlalchemy.orm import Session
 from app.services.face_service import get_face_encoding, compare_encodings
 from app.models.db_session import get_db
+from app.models.response import ResultadoReconhecimento, ResultadoSimilaridade
 import json
 from app.models import db_models
 import numpy as np 
+from typing import List
 
 router = APIRouter(prefix="/faces", tags=["faces"])
 
-@router.post("/reconhecer")
-async def reconhecer(foto: UploadFile, db: Session = Depends(get_db)):
+@router.post("/reconhecer", response_model=ResultadoReconhecimento)
+async def reconhecer(foto: UploadFile, db: Session = Depends(get_db)) -> ResultadoReconhecimento:
     """
     Reconhece o aluno em uma foto enviada.
     
@@ -28,8 +30,7 @@ async def reconhecer(foto: UploadFile, db: Session = Depends(get_db)):
     - db: Session → sessão do banco (injeção de dependência)
 
     Retorna:
-    - Mais provável aluno correspondente
-    - Lista de todos os alunos com similaridade
+    - ResultadoReconhecimento com aluno mais provável e lista de todos
     """
     encoding = get_face_encoding(foto)
     # Verifica se retornou None ou array vazio
@@ -38,13 +39,26 @@ async def reconhecer(foto: UploadFile, db: Session = Depends(get_db)):
 
     pessoas = db.query(db_models.Pessoa).all()
     if not pessoas:
-        return {"mensagem": "Nenhum aluno cadastrado"}
+        return ResultadoReconhecimento(
+            mensagem="Nenhum aluno cadastrado",
+            mais_provavel=None,
+            todos=[]
+        )
 
-    resultados = []
+    resultados: List[ResultadoSimilaridade] = []
     for p in pessoas:
         emb = np.array(json.loads(p.embedding))
         sim = compare_encodings(emb, encoding)
-        resultados.append({"id": p.id, "nome": p.nome, "similaridade": sim, "check_professor": p.check_professor})
+        resultados.append(ResultadoSimilaridade(
+            id=p.id,
+            nome=p.nome,
+            similaridade=sim,
+            check_professor=p.check_professor
+        ))
 
-    resultados = sorted(resultados, key=lambda x: x["similaridade"], reverse=True)
-    return {"mais_provavel": resultados[0], "todos": resultados}
+    resultados_ordenados = sorted(resultados, key=lambda x: x.similaridade, reverse=True)
+    
+    return ResultadoReconhecimento(
+        mais_provavel=resultados_ordenados[0]
+        #TODO: criar endpoint para listagem,[todos=resultados_ordenados]
+    )
