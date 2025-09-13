@@ -12,6 +12,7 @@ from fastapi import APIRouter, UploadFile, Form, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.services.face_service import get_face_encoding
 from app.models.db_session import get_db
+from app.models.response import ResultadoReconhecimento, ResultadoSimilaridade
 import json
 from app.models import db_models
 
@@ -19,7 +20,8 @@ from app.models import db_models
 router = APIRouter(prefix="/students", tags=["students"])
 
 @router.post("/cadastrar")
-async def cadastrar(nome: str = Form(...), foto: UploadFile = None, db: Session = Depends(get_db)):
+async def cadastrar(nome: str = Form(...), foto: UploadFile = None,
+                    db: Session = Depends(get_db)):
     """
     Cadastra um aluno no banco de dados.
     
