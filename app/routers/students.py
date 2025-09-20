@@ -57,11 +57,4 @@ def listar_alunos(db: Session = Depends(get_db)):
     Retorna a lista de todos os alunos cadastrados.
     """
     alunos = db.query(db_models.Pessoa).all()
-    return [
-        {
-            "id": aluno.id,
-            "nome": aluno.nome,
-            "check_professor": aluno.check_professor
-        }
-        for aluno in alunos
-    ]
+    return

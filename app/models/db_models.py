@@ -13,30 +13,15 @@ Resposável por:
 
 """
 
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, DateTime
-from sqlalchemy.orm import relationship
-from datetime import datetime
+from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy.ext.declarative import declarative_base
 
-from app.models.db_session import Base  # só importa, não circular
+Base = declarative_base()
 
 class Pessoa(Base):
     __tablename__ = "pessoas"
 
     id = Column(Integer, primary_key=True, index=True)
-    nome = Column(String, index=True)
-    embedding = Column(String)  # JSON com vetor do rosto
+    nome = Column(String, nullable=False)
+    embedding = Column(String, nullable=False)  # JSON string
     check_professor = Column(Boolean, default=False)
-
-    chamadas = relationship("Chamada", back_populates="pessoa")
-
-
-class Chamada(Base):
-    __tablename__ = "chamadas"
-
-    id = Column(Integer, primary_key=True, index=True)
-    pessoa_id = Column(Integer, ForeignKey("pessoas.id"))
-    timestamp = Column(DateTime, default=datetime.utcnow)
-    origem = Column(String, default="upload")
-
-    pessoa = relationship("Pessoa", back_populates="chamadas")
-

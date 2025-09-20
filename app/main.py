@@ -14,8 +14,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers import students, faces
 from app.models import db_models
-from app.models.db_session import Base, engine
-Base.metadata.create_all(bind=engine)
+from app.models.db_session import get_db
 
 app = FastAPI(title="Sistema de Chamada Automática")
 

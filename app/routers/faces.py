@@ -20,7 +20,6 @@ from typing import List
 
 router = APIRouter(prefix="/faces", tags=["faces"])
 
-
 @router.post("/reconhecer", response_model=ResultadoReconhecimento)
 async def reconhecer(foto: UploadFile, db: Session = Depends(get_db)) -> ResultadoReconhecimento:
     """
@@ -61,4 +60,5 @@ async def reconhecer(foto: UploadFile, db: Session = Depends(get_db)) -> Resulta
     
     return ResultadoReconhecimento(
         mais_provavel=resultados_ordenados[0]
+        #TODO: criar endpoint para listagem,[todos=resultados_ordenados]
     )
