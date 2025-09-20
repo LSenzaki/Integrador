@@ -16,21 +16,22 @@ Responsabilidades:
 
 
 from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from app.models import db_models
 
-DATABASE_URL = "sqlite:///./chamada.db"
+SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"  # ajuste para seu banco real
 
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
-SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
+engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# Cria tabelas
-db_models.Base.metadata.create_all(bind=engine)
+# Base global para os models herdarem
+Base = declarative_base()
 
-# Dependência
+
 def get_db():
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
+
