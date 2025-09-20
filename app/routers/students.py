@@ -65,3 +65,16 @@ def listar_alunos(db: Session = Depends(get_db)):
         }
         for aluno in alunos
     ]
+
+@router.delete("/remover/{aluno_id}")
+def remover_aluno(aluno_id: int, db: Session = Depends(get_db)):
+    """
+    Remove um aluno do banco pelo ID.
+    """
+    aluno = db.query(db_models.Pessoa).filter(db_models.Pessoa.id == aluno_id).first()
+    if not aluno:
+        raise HTTPException(status_code=404, detail="Aluno não encontrado")
+    
+    db.delete(aluno)
+    db.commit()
+    return {"mensagem": f"Aluno '{aluno.nome}' removido com sucesso"}
