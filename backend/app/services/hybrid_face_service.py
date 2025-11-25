@@ -4,26 +4,53 @@ app/services/hybrid_face_service.py
 Serviço híbrido de reconhecimento facial que combina face_recognition e DeepFace
 para obter a melhor combinação de velocidade e precisão.
 
+DeepFace é carregado APENAS quando habilitado via ENABLE_DEEPFACE=true (lazy loading).
+Por padrão, usa apenas face_recognition para máxima performance em produção.
+
 Estratégia:
-1. Usa face_recognition primeiro (rápido)
-2. Se confiança alta: aceita resultado
-3. Se confiança média/baixa: valida com DeepFace
-4. Se não encontrar: tenta DeepFace como fallback
+1. Usa face_recognition primeiro (rápido - 77.6% accuracy, 0.09s)
+2. Se ENABLE_DEEPFACE=false: retorna resultado do face_recognition
+3. Se ENABLE_DEEPFACE=true:
+   - Alta confiança: aceita resultado
+   - Confiança média/baixa: valida com DeepFace
+   - Fallback: tenta DeepFace se não encontrar
 """
 import numpy as np
 from fastapi import UploadFile
 from typing import Optional, List, Dict, Tuple, Any
 import io
 from app.services.face_service import get_face_encoding, recognize_face
-from app.services.deepface_service import get_deepface_encoding, recognize_face_deepface
+from app.config import ENABLE_DEEPFACE, HYBRID_MODE, HIGH_CONFIDENCE_THRESHOLD, LOW_CONFIDENCE_THRESHOLD
 import time
 
-# Thresholds de confiança para a estratégia híbrida
-HIGH_CONFIDENCE_THRESHOLD = 55.0  # Acima disto, aceita face_recognition diretamente
-LOW_CONFIDENCE_THRESHOLD = 35.0   # Abaixo disto, usa apenas DeepFace
+# Global variable for lazy-loaded DeepFace module
+_deepface_module = None
 
-# Modo de operação
-HYBRID_MODE = "smart"  # Opções: "smart", "always_both", "fallback"
+def _load_deepface_if_needed():
+    """
+    Carrega DeepFace apenas quando necessário (lazy loading).
+    Economiza ~700 MB de memória e 5s de startup se não for usado.
+    
+    Returns:
+        Módulo deepface_service ou None se desabilitado/indisponível
+    """
+    global _deepface_module
+    
+    if not ENABLE_DEEPFACE:
+        return None
+    
+    if _deepface_module is None:
+        try:
+            print("⏳ DeepFace habilitado, carregando pela primeira vez...")
+            from app.services import deepface_service
+            _deepface_module = deepface_service
+            print("✅ DeepFace carregado com sucesso")
+        except ImportError as e:
+            print(f"⚠️ DeepFace não disponível (pacote não instalado): {e}")
+            print("💡 Para habilitar: pip install deepface tf-keras tensorflow")
+            return None
+    
+    return _deepface_module
 
 class HybridRecognitionResult:
     """Classe para armazenar resultado do reconhecimento híbrido"""
@@ -246,17 +273,25 @@ def _validate_with_deepface(
     known_faces_data: List[Dict[str, Any]]
 ) -> Optional[Tuple[str, float, float]]:
     """
-    Função auxiliar para validar com DeepFace.
+    Função auxiliar para validar com DeepFace (se habilitado).
     Retorna (student_id, confidence, distance) ou None.
     """
+    if not ENABLE_DEEPFACE:
+        print("⚠️ DeepFace desabilitado via ENABLE_DEEPFACE=false")
+        return None
+    
+    deepface = _load_deepface_if_needed()
+    if deepface is None:
+        return None
+    
     try:
         # Reset file pointer
         file.file.seek(0)
         
-        df_encoding = get_deepface_encoding(file)
+        df_encoding = deepface.get_deepface_encoding(file)
         
         if df_encoding is not None:
-            df_match = recognize_face_deepface(df_encoding, known_faces_data)
+            df_match = deepface.recognize_face_deepface(df_encoding, known_faces_data)
             return df_match
         
     except Exception as e:

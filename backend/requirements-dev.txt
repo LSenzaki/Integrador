@@ -1,0 +1,35 @@
+# Development Requirements
+# Includes all production dependencies plus testing/benchmarking tools
+# Install with: pip install -r requirements-dev.txt
+
+# Import all production requirements
+-r requirements-prod.txt
+
+# Deep Learning (for model comparison and hybrid mode)
+deepface==0.0.93
+tf-keras==2.16.0
+tensorflow==2.17.1
+
+# Data Analysis & Visualization (for comparison_service.py)
+matplotlib==3.10.0
+seaborn==0.13.2
+pandas==2.2.3
+
+# Metrics & Machine Learning (for model benchmarking)
+scikit-learn==1.6.1
+
+# Development & Testing Tools
+pytest==8.3.5
+pytest-asyncio==0.24.0
+pytest-cov==6.0.0
+httpx==0.28.1  # For testing FastAPI endpoints
+
+# Code Quality
+black==24.10.0
+flake8==7.1.1
+isort==5.13.2
+mypy==1.14.1
+
+# Documentation
+mkdocs==1.6.1
+mkdocs-material==9.5.51

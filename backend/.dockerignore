@@ -1,0 +1,74 @@
+# Docker ignore file for optimized production builds
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# Development files
+requirements-dev.txt
+pytest.ini
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Development services (NOT used in production endpoints)
+app/services/comparison_service.py
+app/services/test_dataset.py
+
+# Scripts (development/testing only)
+scripts/
+
+# Tests
+tests/
+*_test.py
+test_*.py
+
+# Documentation
+docs/
+*.md
+!readme.md
+!STRUCTURE.md
+mkdocs.yml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# CI/CD (not needed in container)
+.github/
+.gitlab-ci.yml
+Makefile
+
+# Database files (should be external)
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment files (use env vars in production)
+.env
+.env.local
+.env.*
+
+# Logs
+*.log
+logs/
+
+# Frontend (if deploying backend only)
+../frontend/
