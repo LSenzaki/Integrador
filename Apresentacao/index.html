@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Chamada por Reconhecimento Facial - Apresentação</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bordô: #722F37;
+            --bordô-escuro: #5C252C;
+            --preto: #1a1a1a;
+            --branco: #ffffff;
+            --cinza-claro: #f4f4f4;
+            --cinza-medio: #e0e0e0;
+            --texto-cinza: #4a4a4a;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            background-color: #333;
+            color: var(--preto);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .presentation {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            background-color: var(--branco);
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .slide {
+            width: 100%;
+            height: 100vh; /* Full viewport height for presentation mode */
+            min-height: 700px;
+            background-color: var(--branco);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid #ccc; /* Separator for scrolling view */
+        }
+
+        /* --- Header & Logo --- */
+        .slide-header {
+            background-color: var(--bordô);
+            color: var(--branco);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .slide-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .logo-container {
+            background-color: var(--branco);
+            padding: 5px 10px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-small {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        /* --- Content Area --- */
+        .slide-content {
+            flex: 1;
+            padding: 40px 60px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            justify-content: space-evenly; /* Better vertical distribution */
+        }
+
+        /* --- Typography & Dividers --- */
+        h3.section-title {
+            font-size: 2.2rem; /* Increased size */
+            color: var(--bordô);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid var(--bordô);
+            font-weight: 700;
+            position: relative;
+        }
+        
+        h3.section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background-color: var(--bordô-escuro);
+        }
+
+        h4.subsection {
+            font-size: 1.6rem; /* Increased size */
+            color: var(--bordô-escuro);
+            margin: 25px 0 15px 0;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        
+        h4.subsection::before {
+            content: '•';
+            color: var(--bordô);
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+
+        p {
+            font-size: 1.3rem; /* Increased size */
+            margin-bottom: 20px;
+            color: var(--texto-cinza);
+            text-align: justify;
+            line-height: 1.8;
+        }
+
+        li {
+            font-size: 1.2rem; /* Increased list item size */
+            margin-bottom: 15px;
+        }
+
+        /* --- Cover Slide --- */
+        .slide-cover {
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .slide-cover .banner-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 15px;
+            background-color: var(--bordô);
+        }
+
+        .slide-cover .logo-large {
+            max-height: 120px;
+            margin-bottom: 40px;
+        }
+
+        .slide-cover h1 {
+            font-size: 3.5rem;
+            color: var(--bordô);
+            margin-bottom: 10px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .slide-cover .subtitle {
+            font-size: 1.8rem;
+            color: var(--preto);
+            margin-bottom: 60px;
+            font-weight: 300;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .team-member {
+            background: var(--branco);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-weight: 600;
+            color: var(--bordô);
+            border-left: 5px solid var(--bordô);
+        }
+
+        /* --- Metrics & Tables --- */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .metric-card {
+            background: var(--branco);
+            border: 1px solid var(--cinza-medio);
+            border-radius: 10px;
+            padding: 30px; /* Increased padding */
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 180px; /* Minimum height to fill space */
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--bordô);
+        }
+
+        .metric-card .value {
+            font-size: 3rem; /* Increased size */
+            font-weight: 800;
+            color: var(--bordô);
+            margin-bottom: 10px;
+        }
+
+        .metric-card .label {
+            font-size: 1.1rem; /* Increased size */
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: var(--branco);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        thead {
+            background-color: var(--bordô);
+            color: var(--branco);
+        }
+
+        th, td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--cinza-medio);
+        }
+
+        th {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* --- Diagrams & Flow --- */
+        .flow-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 40px 0;
+            padding: 20px;
+            background: var(--cinza-claro);
+            border-radius: 15px;
+        }
+
+        .flow-step {
+            background: var(--branco);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-top: 5px solid var(--bordô);
+            flex: 1;
+            margin: 0 10px;
+        }
+
+        .flow-arrow {
+            font-size: 2rem;
+            color: var(--bordô);
+            font-weight: bold;
+        }
+
+        /* --- Code Blocks --- */
+        .code-box {
+            background-color: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
+            margin: 15px 0;
+            border-left: 5px solid var(--bordô);
+            overflow-x: auto;
+        }
+
+        .code-keyword { color: #c678dd; }
+        .code-string { color: #98c379; }
+        .code-function { color: #61afef; }
+
+        /* --- Two Columns --- */
+        .columns-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        /* --- Navigation --- */
+        .nav-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            background-color: var(--bordô);
+            color: var(--branco);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: background 0.3s;
+        }
+
+        .nav-btn:hover {
+            background-color: var(--bordô-escuro);
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        /* --- Print --- */
+        @media print {
+            .slide {
+                height: 100vh;
+                page-break-after: always;
+                border-bottom: none;
+            }
+            .nav-controls { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="presentation">
+
+    <!-- SLIDE 1: CAPA -->
+    <div class="slide slide-cover" id="slide-1">
+        <div class="banner-top"></div>
+        <div class="slide-content" style="justify-content: center; align-items: center;">
+            <!-- Logo Container with white background to ensure visibility -->
+            <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <img src="logo.png" alt="Faculdade Donaduzzi" class="logo-large" style="margin-bottom: 0; height: 80px;">
+            </div>
+            
+            <h1>Sistema de Chamada por<br>Reconhecimento Facial</h1>
+            <p class="subtitle">Projeto Integrador - Análise e Desenvolvimento de Sistemas</p>
+            
+            <div class="team-grid">
+                <div class="team-member">Árthur Vinicius</div>
+                <div class="team-member">Dalton Hartmann</div>
+                <div class="team-member">Kawan Machado</div>
+                <div class="team-member">Lucas Senzaki</div>
+            </div>
+            
+            <p style="margin-top: 50px; color: #666;">Novembro de 2025</p>
+        </div>
+        <div class="slide-number">1 / 16</div>
+    </div>
+
+    <!-- SLIDE 2: CONTEXTO -->
+    <div class="slide" id="slide-2">
+        <div class="slide-header">
+            <h2>Contexto do Problema</h2>
+            <div class="logo-container"><img src="logo.png" alt="Logo" class="logo-small"></div>
+        </div>
+        <div class="slide-content">
+            <h3 class="section-title">O Desafio da Chamada Tradicional</h3>
+            
+            <div class="columns-2">
+                <div>
+                    <h4 class="subsection">Problemas Identificados</h4>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 20px; padding: 15px; background: #fff0f0; border-left: 4px solid var(--bordô);">
+                            <strong>⏱️ Perda de Tempo:</strong> A chamada manual consome tempo valioso da aula, reduzindo o tempo efetivo de ensino.
+                        </li>
+                        <li style="margin-bottom: 20px; padding: 15px; background: #fff0f0; border-left: 4px solid var(--bordô);">
+                            <strong>🤥 Fraudes:</strong> Assinaturas falsas ou respostas por colegas ausentes.
+                        </li>
+                        <li style="margin-bottom: 20px; padding: 15px; background: #fff0f0; border-left: 4px solid var(--bordô);">
+                            <strong>📉 Falta de Dados:</strong> Dificuldade em gerar relatórios consolidados de frequência em tempo real.
+                        </li>
+                    </ul>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: center;">
+                    <div style="text-align: center; padding: 30px; background: var(--cinza-claro); border-radius: 15px;">
+                        <div style="font-size: 4rem; color: var(--bordô); margin-bottom: 10px;">🎯</div>
+                        <h4 style="color: var(--bordô);">Objetivo</h4>
+                        <p>Automatizar o registro de presença de forma<br><strong>rápida</strong>, <strong>segura</strong> e <strong>integrada</strong>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">2 / 16</div>
+    </div>
+
+    <!-- SLIDE 3: SOLUÇÃO -->
+    <div class="slide" id="slide-3">
+        <div class="slide-header">
+            <h2>Solução Proposta</h2>
+            <div class="logo-container"><img src="logo.png" alt="Logo" class="logo-small"></div>
+        </div>
+        <div class="slide-content">
+            <h3 class="section-title">Arquitetura da Solução</h3>
+            <p>Uma aplicação web completa que utiliza Inteligência Artificial para identificar alunos e registrar presença automaticamente no banco de dados institucional.</p>
+
+            <div class="flow-container">
+                <div class="flow-step">
+                    <div style="font-size: 2rem;">📸</div>
+                    <strong>Captura</strong><br>Webcam/Frontend
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div style="font-size: 2rem;">🧠</div>
+                    <strong>Processamento</strong><br>API Backend + IA
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div style="font-size: 2rem;">💾</div>
+                    <strong>Persistência</strong><br>Supabase Cloud
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div style="font-size: 2rem;">✅</div>
+                    <strong>Confirmação</strong><br>Registro de Presença
+                </div>
+            </div>
+
+            <div class="columns-2">
+                <div class="metric-card">
+                    <div class="value">Híbrido</div>
+                    <div class="label">Sistema de IA</div>
+                    <p style="font-size: 0.9rem; margin-top: 10px;">Combina velocidade e precisão</p>
+                </div>
+                <div class="metric-card">
+                    <div class="value">Cloud</div>
+                    <div class="label">Infraestrutura</div>
+                    <p style="font-size: 0.9rem; margin-top: 10px;">Escalável e acessível</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">3 / 16</div>
+    </div>
+
+    <!-- SLIDE 4: MÉTRICAS -->
+    <div class="slide" id="slide-4">
+        <div class="slide-header">
+            <h2>Métricas e Resultados</h2>
+            <div class="logo-container"><img src="logo.png" alt="Logo" class="logo-small"></div>
+        </div>
+        <div class="slide-content">
+            <h3 class="section-title">Performance dos Modelos</h3>
+            <p>Testes realizados com dataset de 429 imagens (celebridades) para validar acurácia e tempo de resposta.</p>
+
+            <div class="metrics-grid">
+                <div class="metric-card" style="border-color: #2ecc71;">
+                    <div class="value" style="color: #2ecc71;">77.6%</div>
+                    <div class="label">Acurácia (face_recognition)</div>
+                </div>
+                <div class="metric-card" style="border-color: #e74c3c;">
+                    <div class="value" style="color: #e74c3c;">54.1%</div>
+                    <div class="label">Acurácia (DeepFace)</div>
+                </div>
+                <div class="metric-card" style="border-color: #3498db;">
+                    <div class="value" style="color: #3498db;">0.09s</div>
+                    <div class="label">Tempo Médio (FR)</div>
+                </div>
+                <div class="metric-card" style="border-color: #f39c12;">
+                    <div class="value" style="color: #f39c12;">1.70s</div>
+                    <div class="label">Tempo Médio (DF)</div>
+                </div>
+            </div>
+
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 5px solid var(--bordô);">
+                <h4 style="margin-bottom: 10px; color: var(--bordô);">🏆 Veredito dos Testes</h4>
+                <p>O modelo <strong>face_recognition</strong> provou ser superior para o nosso caso de uso, sendo <strong>19x mais rápido</strong> e apresentando <strong>23.5% maior acurácia</strong> no dataset de teste. O DeepFace foi mantido como validador secundário.</p>
+            </div>
+        </div>
+        <div class="slide-number">4 / 16</div>
+    </div>
+
+    <!-- SLIDE 5: COMPARAÇÃO -->
+    <div class="slide" id="slide-5">
+        <div class="slide-header">
+            <h2>Comparação Detalhada</h2>
+            <div class="logo-container"><img src="logo.png" alt="Logo" class="logo-small"></div>
+        </div>
+        <div class="slide-content">
+            <h3 class="section-title">face_recognition vs DeepFace</h3>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>face_recognition (dlib)</th>
+                        <th>DeepFace (Facenet512)</th>
+                        <th>Diferença</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Acurácia</strong></td>
+                        <td style="color: green; font-weight: bold;">77.6%</td>
+                        <td>54.1%</td>
+                        <td>+23.5%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tempo de Processamento</strong></td>
+                        <td style="color: green; font-weight: bold;">0.089s</td>
+                        <td>1.700s</td>
+                        <td>19x mais rápido</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Precision (Macro)</strong></td>
+                        <td>86%</td>
+                        <td>74%</td>
+                        <td>+12%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Recall (Macro)</strong></td>
+                        <td>82%</td>
+                        <td>63%</td>
+                        <td>+19%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cohen's Kappa</strong></td>
+                        <td>0.75 (Substancial)</td>
+                        <td>0.52 (Moderada)</td>
+                        <td>+0.23</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Consumo de Memória</strong></td>
+                        <td>~500 MB</td>
+                        <td>~2 GB</td>
+                        <td>4x menor</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p style="font-size: 0.9rem; margin-top: 10px;">* Cohen's Kappa mede a concordância excluindo o acerto ao acaso. 0.75 indica uma concordância substancial com a realidade.</p>
+        </div>
+        <div class="slide-number">5 / 16</div>
+    </div>
+
+    <!-- SLIDE 6: SISTEMA HÍBRIDO -->
+    <div class="slide" id="slide-6">
+        <div class="slide-header">
+            <h2>Sistema Híbrido (Estratégia SMART)</h2>
+            <div class="logo-container"><img src="logo.png" alt="Logo" class="logo-small"></div>
+        </div>
+        <div class="slide-content">
+            <h3 class="section-title">Lógica de Decisão Inteligente</h3>
+            <p>Para mitigar as fraquezas individuais, implementamos um algoritmo de decisão em cascata:</p>
+
+            <div class="columns-2">
+                <div style="background: #f4f4f4; padding: 20px; border-radius: 10px;">
+                    <h4 class="subsection" style="margin-top: 0;">Fluxo de Decisão</h4>
+                    <ol style="margin-left: 20px; line-height: 2;">
+                        <li>Executa <strong>face_recognition</strong> (Rápido).</li>
+                        <li>Verifica o nível de <strong>confiança</strong>.</li>
+                        <li><strong>Alta (>55%)</strong>: Aceita imediatamente. ✅</li>
+                        <li><strong>Média (35-55%)</strong>: Chama DeepFace para validar. 🔄</li>
+                        <li><strong>Baixa (<35%)</strong>: Usa DeepFace como autoridade. ⚠️</li>
+                        <li>Se falhar: DeepFace Fallback.</li>
+                    </ol>
+                </div>
+                
+                <div>
+                    <h4 class="subsection" style="margin-top: 0;">Thresholds Definidos</h4>
+                    <div class="metric-card" style="margin-bottom: 15px; text-align: left; border-left: 5px solid green;">
+                        <div class="value" style="font-size: 1.5rem; color: green;">55.0%</div>
+                        <div class="label">High Confidence Threshold</div>
+                        <p style="font-size: 0.8rem;">Acima disso, o face_recognition raramente erra. Otimiza velocidade.</p>
+                    </div>
+                    <div class="metric-card" style="text-align: left; border-left: 5px solid orange;">
+                        <div class="value" style="font-size: 1.5rem; color: orange;">35.0%</div>
+                        <div class="label">Low Confidence Threshold</div>
+                        <p style="font-size: 0.8rem;">Abaixo disso, o resultado é incerto e requer validação cruzada.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">6 / 16</div>
+    </div>
+
+    <!-- SLIDE 7: BACKEND -->
+    <div class="slide" id="slide-7">
+        <div class="slide-header">
+            <h2>Tecnologia Backend</h2>
+            <div class="logo-container"><img src="logo.png" alt="Logo" class="logo-small"></div>
+        </div>
+        <div class="slide-content">
+            <h3 class="section-title">Arquitetura em Camadas</h3>
+            
+            <div class="columns-2">
+                <div>
+                    <h4 class="subsection">Stack Tecnológico</h4>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 10px;">🐍 <strong>Python 3.11:</strong> Linguagem base.</li>
+                        <li style="margin-bottom: 10px;">⚡ <strong>FastAPI:</strong> Framework web assíncrono de alta performance.</li>
+                        <li style="margin-bottom: 10px;">🗄️ <strong>SQLAlchemy:</strong> ORM para mapeamento objeto-relacional.</li>
+                        <li style="margin-bottom: 10px;">☁️ <strong>Supabase (PostgreSQL):</strong> Banco de dados na nuvem.</li>
+                        <li style="margin-bottom: 10px;">📦 <strong>Pydantic:</strong> Validação de dados e schemas.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="subsection">Estrutura de Pastas</h4>
+                    <div class="code-box">
+backend/app/
+├── routers/      # Endpoints (API Layer)
+├── services/     # Lógica de Negócio (Service Layer)
+├── models/       # Tabelas do Banco (Data Layer)
+├── schemas/      # Validação (DTOs)
+└── main.py       # Entry Point
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <h4 class="subsection">Destaque: Injeção de Dependência</h4>
+                <p>O FastAPI gerencia automaticamente as conexões de banco de dados através do sistema de <code>Depends()</code>, garantindo sessões limpas e seguras.</p>
+            </div>
+        </div>
+        <div class="slide-number">7 / 16</div>
+    </div>
+
+    <!-- SLIDE 8: FRONTEND -->
+    <div class="slide" id="slide-8">
+        <div class="slide-header">
+            <h2>Tecnologia Frontend</h2>
+            <div class="logo-container"><img src="logo.png" alt="Logo" class="logo-small"></div>
+        </div>
+        <div class="slide-content">
+            <h3 class="section-title">Interface Reativa</h3>
+            
+            <div class="columns-2">
+                <div>
+                    <h4 class="subsection">Stack Tecnológico</h4>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 10px;">⚛️ <strong>React 19.2:</strong> Biblioteca de UI baseada em componentes.</li>
+                        <li style="margin-bottom: 10px;">🎨 <strong>Tailwind CSS:</strong> Estilização utility-first moderna.</li>
+                        <li style="margin-bottom: 10px;">📹 <strong>MediaDevices API:</strong> Acesso nativo à webcam.</li>
+                        <li style="margin-bottom: 10px;">🔄 <strong>Fetch API:</strong> Comunicação assíncrona com o Backend.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="subsection">Componentes Chave</h4>
+                    <div class="code-box">
+src/
+├── components/student/
+│   ├── SelecionarTurma.jsx  # Seleção
+│   └── TelaReconhecimento.jsx # Webcam
+├── hooks/
+│   └── useWebcam.js         # Lógica Customizada
+└── pages/
+    └── AlunoScreen.jsx      # Orquestrador
+                    </div>
+                </div>
+            </div>
+            
+            <p><strong>Hook Personalizado (useWebcam):</strong> Encapsula toda a complexidade de permissões, streaming e captura de frames, permitindo reutilização em qualquer parte do sistema.</p>
+        </div>
+        <div class="slide-number">8 / 16</div>
+    </div>
+
+    <!-- SLIDE 9: FACE RECOGNITION -->
+    <div class="slide" id="slide-9">
+        <div class="slide-header">
+            <h2>Como Funciona: face_recognition</h2>
+            <div class="logo-container"><img src="logo.png" alt="Logo" class="logo-small"></div>
+        </div>
+        <div class="slide-content">
+            <h3 class="section-title">O Motor Principal</h3>
+            <p>Baseado na biblioteca <strong>dlib</strong>, utiliza um pipeline clássico de aprendizado de máquina.</p>
+
+            <div class="flow-container">
+                <div class="flow-step">1. HOG<br><small>Histogram of Oriented Gradients</small></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">2. Landmarks<br><small>68 Pontos Faciais</small></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">3. ResNet<br><small>Rede Neural Profunda</small></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">4. Embedding<br><small>Vetor 128D</small></div>
+            </div>
+
+            <div class="columns-2">
+                <div>
+                    <h4 class="subsection">O que é um Embedding?</h4>
+                    <p>É uma lista de 128 números que representam as características únicas de um rosto. Rostos da mesma pessoa geram números próximos matematicamente.</p>
+                </div>
+                <div>
+                    <h4 class="subsection">Cálculo de Distância</h4>
+                    <div class="code-box">
+distancia = euclidean(face1, face2)
+match = distancia < 0.6
+                    </div>
+                    <p>Se a distância Euclidiana for menor que 0.6, consideramos que é a mesma pessoa.</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">9 / 16</div>
+    </div>
+
+    <!-- SLIDE 10: DEEPFACE -->
+    <div class="slide" id="slide-10">
+        <div class="slide-header">
+            <h2>Como Funciona: DeepFace</h2>
+            <div class="logo-container"><img src="logo.png" alt="Logo" class="logo-small"></div>
+        </div>
+        <div class="slide-content">
+            <h3 class="section-title">O Validador Robusto</h3>
+            <p>Um framework que unifica modelos de estado da arte (VGG-Face, Google FaceNet, ArcFace).</p>
+
+            <div class="columns-2">
+                <div>
+                    <h4 class="subsection">Características</h4>
+                    <ul>
+                        <li><strong>Modelo Usado:</strong> Facenet512 (Google).</li>
+                        <li><strong>Dimensão:</strong> 512 números por rosto (mais detalhado que o FR).</li>
+                        <li><strong>Métrica:</strong> Similaridade de Cosseno.</li>
+                        <li><strong>Vantagem:</strong> Mais robusto a variações de iluminação e ângulo.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="subsection">Por que é mais lento?</h4>
+                    <p>A rede neural é muito mais profunda e complexa. Enquanto o face_recognition foca em velocidade (CPU friendly), o DeepFace brilha com aceleração de GPU (que não utilizamos no servidor padrão para manter custos baixos).</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">10 / 16</div>
+    </div>
+
+    <!-- SLIDE 11: DIFICULDADES 1 -->
+    <div class="slide" id="slide-11">
+        <div class="slide-header">
+            <h2>Dificuldades: Instalação e Ambiente</h2>
+            <div class="logo-container"><img src="logo.png" alt="Logo" class="logo-small"></div>
+        </div>
+        <div class="slide-content">
+            <h3 class="section-title">O Desafio do dlib no Windows</h3>
+            
+            <div style="background: #fff3cd; padding: 20px; border-radius: 8px; border-left: 5px solid #ffc107; margin-bottom: 20px;">
+                <strong>Problema:</strong> A biblioteca <code>face_recognition</code> depende do <code>dlib</code>, que é escrito em C++. O <code>pip install</code> falha no Windows por falta de compiladores nativos.
+            </div>
+
+            <h4 class="subsection">Solução Implementada</h4>
+            <ol style="margin-left: 20px;">
+                <li>Instalação do <strong>Visual Studio Build Tools</strong> (Compilador C++).</li>
+                <li>Instalação e configuração do <strong>CMake</strong> no PATH do sistema.</li>
+                <li>Compilação manual do dlib antes de instalar o pacote Python.</li>
+                <li>Uso de arquivos <code>.whl</code> (wheels) pré-compilados para agilizar o setup em novas máquinas.</li>
+            </ol>
+        </div>
+        <div class="slide-number">11 / 16</div>
+    </div>
+
+    <!-- SLIDE 12: DIFICULDADES 2 -->
+    <div class="slide" id="slide-12">
+        <div class="slide-header">
+            <h2>Dificuldades: Banco de Dados</h2>
+            <div class="logo-container"><img src="logo.png" alt="Logo" class="logo-small"></div>
+        </div>
+        <div class="slide-content">
+            <h3 class="section-title">Migração SQLite → Supabase</h3>
+            
+            <div class="columns-2">
+                <div class="metric-card">
+                    <div class="value">SQLite</div>
+                    <div class="label">Inicial</div>
+                    <ul style="text-align: left; margin-top: 15px; font-size: 0.9rem;">
+                        <li>Arquivo local (.db)</li>
+                        <li>Bloqueio de escrita (concorrência ruim)</li>
+                        <li>Difícil de compartilhar entre devs</li>
+                    </ul>
+                </div>
+                <div class="metric-card" style="border-color: var(--bordô);">
+                    <div class="value">Supabase</div>
+                    <div class="label">Final</div>
+                    <ul style="text-align: left; margin-top: 15px; font-size: 0.9rem;">
+                        <li>PostgreSQL na nuvem</li>
+                        <li>API REST nativa</li>
+                        <li>Suporte a tipos complexos (Arrays/JSON)</li>
+                        <li>Escalabilidade real</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h4 class="subsection">Desafio Técnico</h4>
+            <p>Adaptar o ORM SQLAlchemy para trabalhar de forma otimizada com o PostgreSQL, especialmente no armazenamento dos vetores de embedding (arrays de float) que precisaram ser serializados corretamente.</p>
+        </div>
+        <div class="slide-number">12 / 16</div>
+    </div>
+
+    <!-- SLIDE 13: DIFICULDADES 3 -->
+    <div class="slide" id="slide-13">
+        <div class="slide-header">
+            <h2>Dificuldades: Integração</h2>
+            <div class="logo-container"><img src="logo.png" alt="Logo" class="logo-small"></div>
+        </div>
+        <div class="slide-content">
+            <h3 class="section-title">Evolução do Frontend</h3>
+            
+            <div class="flow-container">
+                <div class="flow-step" style="opacity: 0.6;">Lovable (No-Code)<br><small>Limitado</small></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step" style="opacity: 0.6;">Ngrok (Túnel)<br><small>Instável/Lento</small></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step" style="border-color: green;">React Local<br><small>Robusto/Rápido</small></div>
+            </div>
+
+            <p>Inicialmente tentamos usar ferramentas No-Code (Lovable) conectadas via túnel (Ngrok) ao backend local. Isso gerou latência alta e falhas de conexão.</p>
+            <p><strong>Solução Definitiva:</strong> Reescrever o frontend em React puro rodando localmente, comunicando-se diretamente com o backend via <code>localhost</code>, eliminando intermediários e garantindo resposta instantânea.</p>
+            
+            <h4 class="subsection">Documentação</h4>
+            <p>Implementamos <strong>MkDocs</strong> com Material Theme para manter a documentação técnica viva, versionada e acessível a todo o time.</p>
+        </div>
+        <div class="slide-number">13 / 16</div>
+    </div>
+
+    <!-- SLIDE 14: PRÓXIMOS PASSOS -->
+    <div class="slide" id="slide-14">
+        <div class="slide-header">
+            <h2>Próximos Passos</h2>
+            <div class="logo-container"><img src="logo.png" alt="Logo" class="logo-small"></div>
+        </div>
+        <div class="slide-content">
+            <h3 class="section-title">Roadmap de Evolução</h3>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="value">🐳</div>
+                    <div class="label">Docker</div>
+                    <p style="font-size: 0.8rem;">Containerização completa para deploy em qualquer servidor com 1 comando.</p>
+                </div>
+                <div class="metric-card">
+                    <div class="value">⚡</div>
+                    <div class="label">Real-Time</div>
+                    <p style="font-size: 0.8rem;">Reconhecimento contínuo sem necessidade de clicar em "Capturar".</p>
+                </div>
+                <div class="metric-card">
+                    <div class="value">🎨</div>
+                    <div class="label">UX/UI</div>
+                    <p style="font-size: 0.8rem;">Melhoria visual, feedback sonoro e dashboard para professores.</p>
+                </div>
+                <div class="metric-card">
+                    <div class="value">🔒</div>
+                    <div class="label">Segurança</div>
+                    <p style="font-size: 0.8rem;">Detecção de "Liveness" para evitar fraudes com fotos de celular.</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">14 / 16</div>
+    </div>
+
+    <!-- SLIDE 15: CONCLUSÃO -->
+    <div class="slide" id="slide-15">
+        <div class="slide-header">
+            <h2>Conclusão</h2>
+            <div class="logo-container"><img src="logo.png" alt="Logo" class="logo-small"></div>
+        </div>
+        <div class="slide-content">
+            <h3 class="section-title">Resultados Alcançados</h3>
+            
+            <div style="background: var(--cinza-claro); padding: 30px; border-radius: 15px; text-align: center; margin-bottom: 30px;">
+                <p style="font-size: 1.3rem; color: var(--bordô); font-weight: 600;">
+                    "Desenvolvemos uma solução funcional, escalável e economicamente viável que resolve o problema da perda de tempo e confiabilidade na chamada escolar."
+                </p>
+            </div>
+
+            <div class="columns-2">
+                <div>
+                    <h4 class="subsection">Entregas Técnicas</h4>
+                    <ul>
+                        <li>API REST robusta com 28 endpoints.</li>
+                        <li>Sistema híbrido de IA com 77.6% de acurácia.</li>
+                        <li>Tempo de resposta sub-segundo (< 1s).</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="subsection">Aprendizado</h4>
+                    <ul>
+                        <li>Integração Fullstack (React + Python).</li>
+                        <li>Manipulação avançada de imagens e vetores.</li>
+                        <li>Arquitetura de software e Cloud Computing.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">15 / 16</div>
+    </div>
+
+    <!-- SLIDE 16: ENCERRAMENTO -->
+    <div class="slide slide-cover" id="slide-16">
+        <div class="slide-content" style="justify-content: center; align-items: center;">
+            <h1 style="font-size: 4rem;">Obrigado!</h1>
+            <p class="subtitle">Dúvidas?</p>
+            
+            <div style="margin-top: 50px; font-size: 1.2rem;">
+                <p><strong>Repositório:</strong> github.com/LSenzaki/Integrador</p>
+            </div>
+
+            <div style="margin-top: 60px;">
+                <img src="logo.png" alt="Faculdade Donaduzzi" style="height: 60px;">
+            </div>
+        </div>
+        <div class="banner-top" style="top: auto; bottom: 0;"></div>
+        <div class="slide-number">16 / 16</div>
+    </div>
+
+</div>
+
+<!-- CONTROLS -->
+<div class="nav-controls">
+    <button class="nav-btn" onclick="prevSlide()">← Anterior</button>
+    <button class="nav-btn" onclick="nextSlide()">Próximo →</button>
+</div>
+
+<script>
+    let currentSlide = 1;
+    const totalSlides = 16;
+
+    function showSlide(n) {
+        if (n < 1) n = 1;
+        if (n > totalSlides) n = totalSlides;
+        currentSlide = n;
+        
+        document.getElementById(`slide-${currentSlide}`).scrollIntoView({ 
+            behavior: 'smooth' 
+        });
+    }
+
+    function nextSlide() {
+        showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+        showSlide(currentSlide - 1);
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+            e.preventDefault();
+            nextSlide();
+        }
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            prevSlide();
+        }
+    });
+</script>
+
+</body>
+</html>
