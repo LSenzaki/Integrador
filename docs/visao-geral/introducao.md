@@ -11,20 +11,20 @@ Substituir os métodos tradicionais de chamada manual ou cartão de ponto por um
 ## Benefícios
 
 ### Para Instituições
-- ✅ **Redução de Tempo**: Chamada automática em segundos
-- ✅ **Precisão**: Sistema híbrido com alta taxa de acerto
-- ✅ **Relatórios**: Dados de presença em tempo real
-- ✅ **Segurança**: Impossível fraudar presença
+-  **Redução de Tempo**: Chamada automática em segundos
+-  **Precisão**: Sistema híbrido com alta taxa de acerto
+-  **Relatórios**: Dados de presença em tempo real
+-  **Segurança**: Impossível fraudar presença
 
 ### Para Professores
-- ✅ **Validação Rápida**: Interface intuitiva para validação de presenças
-- ✅ **Gestão de Turmas**: Controle das turmas atribuídas
-- ✅ **Histórico**: Acesso ao histórico de presenças
+-  **Validação Rápida**: Interface intuitiva para validação de presenças
+-  **Gestão de Turmas**: Controle das turmas atribuídas
+-  **Histórico**: Acesso ao histórico de presenças
 
 ### Para Alunos
-- ✅ **Praticidade**: Registro de presença por reconhecimento facial
-- ✅ **Transparência**: Visualização do status de presença
-- ✅ **Rapidez**: Processo completo em segundos
+-  **Praticidade**: Registro de presença por reconhecimento facial
+-  **Transparência**: Visualização do status de presença
+-  **Rapidez**: Processo completo em segundos
 
 ## Casos de Uso
 

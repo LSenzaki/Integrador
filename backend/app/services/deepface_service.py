@@ -16,7 +16,7 @@ import os
 from app.services.face_service import preprocess_image
 
 # Configurações do DeepFace
-DEEPFACE_MODEL = "Facenet512"  # Opções: VGG-Face, Facenet, Facenet512, OpenFace, DeepFace, DeepID, ArcFace, Dlib, SFace
+DEEPFACE_MODEL = "Facenet"  # Opções: VGG-Face, Facenet, Facenet512, OpenFace, DeepFace, DeepID, ArcFace, Dlib, SFace
 DEEPFACE_DETECTOR = "opencv"   # Opções: opencv, ssd, dlib, mtcnn, retinaface, mediapipe
 DEEPFACE_DISTANCE_METRIC = "cosine"  # Opções: cosine, euclidean, euclidean_l2
 

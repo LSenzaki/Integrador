@@ -3,7 +3,7 @@
 ## What Was Done
 
 ### 1. Updated Database Models (`db_models.py`)
-✅ **COMPLETED** - Replaced old schema with new structure:
+ **COMPLETED** - Replaced old schema with new structure:
 
 **Old Schema (Removed):**
 - `Student` - Single table for students with is_professor flag
@@ -31,7 +31,7 @@
 - Added aliases `Student = Aluno` and `AttendanceRecord = Presenca` for backward compatibility
 
 ### 2. Updated Database Connection (`db_session.py`)
-✅ **COMPLETED** - Migrated from SQLite to PostgreSQL (Supabase):
+ **COMPLETED** - Migrated from SQLite to PostgreSQL (Supabase):
 
 **Changes:**
 - Replaced SQLite connection with PostgreSQL
@@ -52,7 +52,7 @@
 
 ## What Needs to Be Done
 
-### STEP 1: Run SQL Schema in Supabase ⚠️ **REQUIRED**
+### STEP 1: Run SQL Schema in Supabase  **REQUIRED**
 
 **Location:** `backend/database_schema.sql`
 
@@ -333,7 +333,7 @@ python test_connection.py
 
 ### STEP 7: Update Frontend API Calls
 
-The frontend already expects the new schema structure! ✅
+The frontend already expects the new schema structure! 
 
 **Existing frontend code already prepared for:**
 - `/classes/` endpoints

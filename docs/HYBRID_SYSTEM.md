@@ -1,42 +1,42 @@
 # Sistema Híbrido de Reconhecimento Facial
 
-## 🎯 Visão Geral
+##  Visão Geral
 
 Este sistema combina **face_recognition** e **DeepFace** em uma estratégia híbrida inteligente que otimiza tanto velocidade quanto precisão no reconhecimento facial.
 
-## 📊 Resultados da Comparação
+##  Resultados da Comparação
 
 Baseado em testes com 429 imagens de celebridades:
 
 | Modelo | Acurácia | Velocidade Média | F1 Score | Precisão | Recall |
 |--------|----------|------------------|----------|----------|--------|
 | **face_recognition** | 77.6% | ~0.09s | 0.84 | 0.86 | 0.82 |
-| **DeepFace (Facenet512)** | 54.1% | ~1.7s | 0.68 | 0.74 | 0.63 |
+| **DeepFace (Facenet)** | 54.1% | ~1.7s | 0.68 | 0.74 | 0.63 |
 
-## 🚀 Estratégias Disponíveis
+##  Estratégias Disponíveis
 
-### 1. SMART (Recomendado) ⭐
+### 1. SMART (Recomendado) 
 
 Estratégia inteligente que adapta o processamento baseado na confiança:
 
 ```
 1. Executa face_recognition (rápido)
 2. Se confiança >= 60%: 
-   ✅ Aceita resultado imediatamente
+    Aceita resultado imediatamente
 3. Se confiança entre 40-60%:
-   🔄 Valida com DeepFace
-   ✅ Aceita se ambos concordam
+    Valida com DeepFace
+    Aceita se ambos concordam
 4. Se confiança < 40%:
-   🔄 Usa DeepFace como autoridade
+    Usa DeepFace como autoridade
 5. Se não encontrar:
-   🔄 Tenta DeepFace como fallback
+    Tenta DeepFace como fallback
 ```
 
 **Vantagens:**
-- ✅ Rápido na maioria dos casos (~90%)
-- ✅ Alta precisão quando necessário
-- ✅ Melhor custo-benefício
-- ✅ Ideal para sistemas de presença
+-  Rápido na maioria dos casos (~90%)
+-  Alta precisão quando necessário
+-  Melhor custo-benefício
+-  Ideal para sistemas de presença
 
 **Tempo médio:** ~0.3s (mix de casos rápidos e validados)
 
@@ -53,13 +53,13 @@ Sempre executa ambos os modelos e combina resultados:
 ```
 
 **Vantagens:**
-- ✅ Máxima precisão
-- ✅ Reduz falsos positivos
-- ✅ Ideal para aplicações críticas
+-  Máxima precisão
+-  Reduz falsos positivos
+-  Ideal para aplicações críticas
 
 **Desvantagens:**
-- ❌ Sempre mais lento (~1.8s)
-- ❌ Maior custo computacional
+-  Sempre mais lento (~1.8s)
+-  Maior custo computacional
 
 ### 3. FALLBACK (Máxima Velocidade)
 
@@ -72,14 +72,14 @@ Usa face_recognition, DeepFace apenas em falhas:
 ```
 
 **Vantagens:**
-- ✅ Mais rápido possível
-- ✅ Fallback para casos difíceis
+-  Mais rápido possível
+-  Fallback para casos difíceis
 
 **Desvantagens:**
-- ❌ Pode ter falsos positivos
-- ❌ Menos validação
+-  Pode ter falsos positivos
+-  Menos validação
 
-## 🔧 Como Usar
+##  Como Usar
 
 ### Reconhecimento Padrão (SMART)
 
@@ -178,7 +178,7 @@ foto: [arquivo de imagem]
 - `false`: Modelos discordam
 - `null`: Apenas um modelo foi usado
 
-## ⚙️ Configuração
+##  Configuração
 
 ### Thresholds de Confiança
 
@@ -202,12 +202,12 @@ FACE_RECOGNITION_TOLERANCE = 0.6
 Em `app/services/deepface_service.py`:
 
 ```python
-DEEPFACE_MODEL = "Facenet512"
+DEEPFACE_MODEL = "Facenet"
 DEEPFACE_DETECTOR = "opencv"
 DEEPFACE_DISTANCE_METRIC = "cosine"
 ```
 
-## 🎓 Casos de Uso
+##  Casos de Uso
 
 ### Sistema de Presença (SMART)
 - Velocidade + precisão
@@ -224,7 +224,7 @@ DEEPFACE_DISTANCE_METRIC = "cosine"
 - Grande volume de pessoas
 - Ambiente controlado
 
-## 📊 Exemplo de Estatísticas
+##  Exemplo de Estatísticas
 
 Após 100 reconhecimentos em modo SMART:
 
@@ -250,31 +250,31 @@ Após 100 reconhecimentos em modo SMART:
 - 4% não reconhecidos
 - Apenas 2% de discordância
 
-## 🔍 Debug e Logging
+##  Debug e Logging
 
 O sistema imprime logs detalhados no console:
 
 ```
-🚀 Iniciando reconhecimento com face_recognition...
-✅ face_recognition encontrou: 123 (confiança: 87.50%)
-✨ Alta confiança (87.50%), aceitando resultado
+ Iniciando reconhecimento com face_recognition...
+ face_recognition encontrou: 123 (confiança: 87.50%)
+ Alta confiança (87.50%), aceitando resultado
 ```
 
 ```
-🚀 Iniciando reconhecimento com face_recognition...
-✅ face_recognition encontrou: 123 (confiança: 52.30%)
-⚠️ Confiança média (52.30%), validando com DeepFace...
-✅ Ambos concordam! ID: 123
+ Iniciando reconhecimento com face_recognition...
+ face_recognition encontrou: 123 (confiança: 52.30%)
+ Confiança média (52.30%), validando com DeepFace...
+ Ambos concordam! ID: 123
 ```
 
-## 📝 Notas Importantes
+##  Notas Importantes
 
 1. **Primeiro Reconhecimento**: O DeepFace pode demorar mais na primeira execução (carregamento de modelos)
-2. **Memória**: DeepFace usa mais RAM (~2GB para Facenet512)
+2. **Memória**: DeepFace usa mais RAM (~1GB para Facenet)
 3. **CPU vs GPU**: DeepFace se beneficia de GPU, mas funciona em CPU
 4. **Imagens**: Melhor qualidade = melhor resultado (mínimo 300x300px recomendado)
 
-## 🛠️ Troubleshooting
+##  Troubleshooting
 
 ### DeepFace não funciona
 ```bash
@@ -301,4 +301,4 @@ pip install tf-keras==2.16.0
 
 ---
 
-**Desenvolvido com ❤️ para otimizar reconhecimento facial**
+**Desenvolvido com ❤ para otimizar reconhecimento facial**

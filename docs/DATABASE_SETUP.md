@@ -1,9 +1,9 @@
 # Database Setup Guide - Supabase
 
-## 📋 Overview
+##  Overview
 This guide will help you set up the PostgreSQL database schema in Supabase for the Facial Recognition Attendance System.
 
-## 🗃️ Database Structure
+## 🗃 Database Structure
 
 ### Tables Created:
 1. **`turmas`** - Classes (e.g., "IA 1º Ano", "Data Science 3º Ano")
@@ -14,15 +14,15 @@ This guide will help you set up the PostgreSQL database schema in Supabase for t
 6. **`presencas`** - Attendance records with confidence scores
 
 ### Additional Features:
-- ✅ **Indexes** for fast queries
-- ✅ **Auto-updating timestamps** (created_at, updated_at)
-- ✅ **Views** for common queries
-- ✅ **Stored function** for date-based attendance retrieval
-- ✅ **Sample data** included for testing
+-  **Indexes** for fast queries
+-  **Auto-updating timestamps** (created_at, updated_at)
+-  **Views** for common queries
+-  **Stored function** for date-based attendance retrieval
+-  **Sample data** included for testing
 
 ---
 
-## 🚀 Setup Instructions
+##  Setup Instructions
 
 ### Step 1: Access Supabase SQL Editor
 
@@ -42,12 +42,12 @@ This guide will help you set up the PostgreSQL database schema in Supabase for t
 ### Step 3: Verify Tables
 
 Go to **"Table Editor"** in the left sidebar and verify you see:
-- ✅ turmas
-- ✅ professores
-- ✅ turmas_professores
-- ✅ alunos
-- ✅ face_embeddings
-- ✅ presencas
+-  turmas
+-  professores
+-  turmas_professores
+-  alunos
+-  face_embeddings
+-  presencas
 
 ### Step 4: Update Backend Configuration
 
@@ -64,7 +64,7 @@ You can find these in:
 
 ---
 
-## 📊 Database Relationships
+##  Database Relationships
 
 ```
 turmas (classes)
@@ -83,7 +83,7 @@ professores → presencas (validation)
 
 ---
 
-## 🔍 Useful Views Created
+##  Useful Views Created
 
 ### 1. `vw_alunos_completo`
 Complete student information with class name and photo count
@@ -105,7 +105,7 @@ SELECT * FROM vw_presencas_completo WHERE data = CURRENT_DATE;
 
 ---
 
-## 🛠️ Useful Functions
+##  Useful Functions
 
 ### Get attendances by date:
 ```sql
@@ -114,7 +114,7 @@ SELECT * FROM get_presencas_by_date('2025-11-14');
 
 ---
 
-## 📝 Sample Queries
+##  Sample Queries
 
 ### Check all students in a class:
 ```sql
@@ -155,7 +155,7 @@ JOIN turmas t ON tp.turma_id = t.id;
 
 ---
 
-## 🧪 Testing with Sample Data
+##  Testing with Sample Data
 
 The schema includes sample data:
 - 3 classes (IA 1º Ano, Data Science 3º Ano, Machine Learning 2º Ano)
@@ -177,7 +177,7 @@ FROM alunos WHERE nome = 'João Silva';
 
 ---
 
-## 🔒 Security Notes
+##  Security Notes
 
 - RLS (Row Level Security) is **commented out** by default
 - Uncomment RLS policies if you add authentication later
@@ -186,7 +186,7 @@ FROM alunos WHERE nome = 'João Silva';
 
 ---
 
-## ⚠️ Troubleshooting
+##  Troubleshooting
 
 ### Error: "relation already exists"
 - Tables already created. Either:
@@ -203,7 +203,7 @@ FROM alunos WHERE nome = 'João Silva';
 
 ---
 
-## 🗑️ Cleanup (Development Only)
+## 🗑 Cleanup (Development Only)
 
 To completely reset the database, run the cleanup script at the bottom of `database_schema.sql`:
 
@@ -214,14 +214,14 @@ To completely reset the database, run the cleanup script at the bottom of `datab
 
 ---
 
-## ✅ Next Steps
+##  Next Steps
 
 After database setup:
-1. ✅ Update FastAPI models to match the schema
-2. ✅ Create API endpoints for CRUD operations
-3. ✅ Test with the frontend
-4. ✅ Add data validation
-5. ✅ Implement facial recognition storage
+1.  Update FastAPI models to match the schema
+2.  Create API endpoints for CRUD operations
+3.  Test with the frontend
+4.  Add data validation
+5.  Implement facial recognition storage
 
 ---
 

@@ -386,7 +386,7 @@
             </div>
             
             <h1>Sistema de Chamada por<br>Reconhecimento Facial</h1>
-            <p class="subtitle">Projeto Integrador - Análise e Desenvolvimento de Sistemas</p>
+            <p class="subtitle">Projeto Integrador - Inteligência Artificial</p>
             
             <div class="team-grid">
                 <div class="team-member">Árthur Vinicius</div>
@@ -484,8 +484,75 @@
         <div class="slide-number">3 / 16</div>
     </div>
 
-    <!-- SLIDE 4: MÉTRICAS -->
+    <!-- SLIDE 4: FACE RECOGNITION -->
     <div class="slide" id="slide-4">
+        <div class="slide-header">
+            <h2>Como Funciona: face_recognition</h2>
+            <div class="logo-container"><img src="logo.png" alt="Logo" class="logo-small"></div>
+        </div>
+        <div class="slide-content">
+            <h3 class="section-title">O Motor Principal</h3>
+            <p>Baseado na biblioteca <strong>dlib</strong>, utiliza um pipeline clássico de aprendizado de máquina.</p>
+
+            <div class="flow-container">
+                <div class="flow-step">1. HOG<br><small>Histogram of Oriented Gradients</small></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">2. Landmarks<br><small>68 Pontos Faciais</small></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">3. ResNet<br><small>Rede Neural Profunda</small></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">4. Embedding<br><small>Vetor 128D</small></div>
+            </div>
+
+            <div class="columns-2">
+                <div>
+                    <h4 class="subsection">O que é um Embedding?</h4>
+                    <p>É uma lista de 128 números que representam as características únicas de um rosto. Rostos da mesma pessoa geram números próximos matematicamente.</p>
+                </div>
+                <div>
+                    <h4 class="subsection">Cálculo de Distância</h4>
+                    <div class="code-box">
+distancia = euclidean(face1, face2)
+match = distancia < 0.6
+                    </div>
+                    <p>Se a distância Euclidiana for menor que 0.6, consideramos que é a mesma pessoa.</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">4 / 16</div>
+    </div>
+
+    <!-- SLIDE 5: DEEPFACE -->
+    <div class="slide" id="slide-5">
+        <div class="slide-header">
+            <h2>Como Funciona: DeepFace</h2>
+            <div class="logo-container"><img src="logo.png" alt="Logo" class="logo-small"></div>
+        </div>
+        <div class="slide-content">
+            <h3 class="section-title">O Validador Robusto</h3>
+            <p>Um framework que unifica modelos de estado da arte (VGG-Face, Google FaceNet, ArcFace).</p>
+
+            <div class="columns-2">
+                <div>
+                    <h4 class="subsection">Características</h4>
+                    <ul>
+                        <li><strong>Modelo Usado:</strong> Facenet (Google).</li>
+                        <li><strong>Dimensão:</strong> 128 números por rosto (igual ao FR).</li>
+                        <li><strong>Métrica:</strong> Similaridade de Cosseno.</li>
+                        <li><strong>Vantagem:</strong> Mais robusto a variações de iluminação e ângulo.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="subsection">Por que é mais lento?</h4>
+                    <p>A rede neural é muito mais profunda e complexa. Enquanto o face_recognition foca em velocidade (CPU friendly), o DeepFace brilha com aceleração de GPU (que não utilizamos no servidor padrão para manter custos baixos).</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">5 / 16</div>
+    </div>
+
+    <!-- SLIDE 6: MÉTRICAS -->
+    <div class="slide" id="slide-6">
         <div class="slide-header">
             <h2>Métricas e Resultados</h2>
             <div class="logo-container"><img src="logo.png" alt="Logo" class="logo-small"></div>
@@ -518,11 +585,11 @@
                 <p>O modelo <strong>face_recognition</strong> provou ser superior para o nosso caso de uso, sendo <strong>19x mais rápido</strong> e apresentando <strong>23.5% maior acurácia</strong> no dataset de teste. O DeepFace foi mantido como validador secundário.</p>
             </div>
         </div>
-        <div class="slide-number">4 / 16</div>
+        <div class="slide-number">6 / 16</div>
     </div>
 
-    <!-- SLIDE 5: COMPARAÇÃO -->
-    <div class="slide" id="slide-5">
+    <!-- SLIDE 7: COMPARAÇÃO -->
+    <div class="slide" id="slide-7">
         <div class="slide-header">
             <h2>Comparação Detalhada</h2>
             <div class="logo-container"><img src="logo.png" alt="Logo" class="logo-small"></div>
@@ -535,7 +602,7 @@
                     <tr>
                         <th>Métrica</th>
                         <th>face_recognition (dlib)</th>
-                        <th>DeepFace (Facenet512)</th>
+                        <th>DeepFace (Facenet)</th>
                         <th>Diferença</th>
                     </tr>
                 </thead>
@@ -581,11 +648,11 @@
             
             <p style="font-size: 0.9rem; margin-top: 10px;">* Cohen's Kappa mede a concordância excluindo o acerto ao acaso. 0.75 indica uma concordância substancial com a realidade.</p>
         </div>
-        <div class="slide-number">5 / 16</div>
+        <div class="slide-number">7 / 16</div>
     </div>
 
-    <!-- SLIDE 6: SISTEMA HÍBRIDO -->
-    <div class="slide" id="slide-6">
+    <!-- SLIDE 8: SISTEMA HÍBRIDO -->
+    <div class="slide" id="slide-8">
         <div class="slide-header">
             <h2>Sistema Híbrido (Estratégia SMART)</h2>
             <div class="logo-container"><img src="logo.png" alt="Logo" class="logo-small"></div>
@@ -622,11 +689,11 @@
                 </div>
             </div>
         </div>
-        <div class="slide-number">6 / 16</div>
+        <div class="slide-number">8 / 16</div>
     </div>
 
-    <!-- SLIDE 7: BACKEND -->
-    <div class="slide" id="slide-7">
+    <!-- SLIDE 9: BACKEND -->
+    <div class="slide" id="slide-9">
         <div class="slide-header">
             <h2>Tecnologia Backend</h2>
             <div class="logo-container"><img src="logo.png" alt="Logo" class="logo-small"></div>
@@ -663,11 +730,11 @@ backend/app/
                 <p>O FastAPI gerencia automaticamente as conexões de banco de dados através do sistema de <code>Depends()</code>, garantindo sessões limpas e seguras.</p>
             </div>
         </div>
-        <div class="slide-number">7 / 16</div>
+        <div class="slide-number">9 / 16</div>
     </div>
 
-    <!-- SLIDE 8: FRONTEND -->
-    <div class="slide" id="slide-8">
+    <!-- SLIDE 10: FRONTEND -->
+    <div class="slide" id="slide-10">
         <div class="slide-header">
             <h2>Tecnologia Frontend</h2>
             <div class="logo-container"><img src="logo.png" alt="Logo" class="logo-small"></div>
@@ -701,73 +768,6 @@ src/
             </div>
             
             <p><strong>Hook Personalizado (useWebcam):</strong> Encapsula toda a complexidade de permissões, streaming e captura de frames, permitindo reutilização em qualquer parte do sistema.</p>
-        </div>
-        <div class="slide-number">8 / 16</div>
-    </div>
-
-    <!-- SLIDE 9: FACE RECOGNITION -->
-    <div class="slide" id="slide-9">
-        <div class="slide-header">
-            <h2>Como Funciona: face_recognition</h2>
-            <div class="logo-container"><img src="logo.png" alt="Logo" class="logo-small"></div>
-        </div>
-        <div class="slide-content">
-            <h3 class="section-title">O Motor Principal</h3>
-            <p>Baseado na biblioteca <strong>dlib</strong>, utiliza um pipeline clássico de aprendizado de máquina.</p>
-
-            <div class="flow-container">
-                <div class="flow-step">1. HOG<br><small>Histogram of Oriented Gradients</small></div>
-                <div class="flow-arrow">→</div>
-                <div class="flow-step">2. Landmarks<br><small>68 Pontos Faciais</small></div>
-                <div class="flow-arrow">→</div>
-                <div class="flow-step">3. ResNet<br><small>Rede Neural Profunda</small></div>
-                <div class="flow-arrow">→</div>
-                <div class="flow-step">4. Embedding<br><small>Vetor 128D</small></div>
-            </div>
-
-            <div class="columns-2">
-                <div>
-                    <h4 class="subsection">O que é um Embedding?</h4>
-                    <p>É uma lista de 128 números que representam as características únicas de um rosto. Rostos da mesma pessoa geram números próximos matematicamente.</p>
-                </div>
-                <div>
-                    <h4 class="subsection">Cálculo de Distância</h4>
-                    <div class="code-box">
-distancia = euclidean(face1, face2)
-match = distancia < 0.6
-                    </div>
-                    <p>Se a distância Euclidiana for menor que 0.6, consideramos que é a mesma pessoa.</p>
-                </div>
-            </div>
-        </div>
-        <div class="slide-number">9 / 16</div>
-    </div>
-
-    <!-- SLIDE 10: DEEPFACE -->
-    <div class="slide" id="slide-10">
-        <div class="slide-header">
-            <h2>Como Funciona: DeepFace</h2>
-            <div class="logo-container"><img src="logo.png" alt="Logo" class="logo-small"></div>
-        </div>
-        <div class="slide-content">
-            <h3 class="section-title">O Validador Robusto</h3>
-            <p>Um framework que unifica modelos de estado da arte (VGG-Face, Google FaceNet, ArcFace).</p>
-
-            <div class="columns-2">
-                <div>
-                    <h4 class="subsection">Características</h4>
-                    <ul>
-                        <li><strong>Modelo Usado:</strong> Facenet512 (Google).</li>
-                        <li><strong>Dimensão:</strong> 512 números por rosto (mais detalhado que o FR).</li>
-                        <li><strong>Métrica:</strong> Similaridade de Cosseno.</li>
-                        <li><strong>Vantagem:</strong> Mais robusto a variações de iluminação e ângulo.</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="subsection">Por que é mais lento?</h4>
-                    <p>A rede neural é muito mais profunda e complexa. Enquanto o face_recognition foca em velocidade (CPU friendly), o DeepFace brilha com aceleração de GPU (que não utilizamos no servidor padrão para manter custos baixos).</p>
-                </div>
-            </div>
         </div>
         <div class="slide-number">10 / 16</div>
     </div>
@@ -931,8 +931,8 @@ match = distancia < 0.6
         <div class="slide-number">15 / 16</div>
     </div>
 
-    <!-- SLIDE 16: ENCERRAMENTO -->
-    <div class="slide slide-cover" id="slide-16">
+    <!-- SLIDE 17: ENCERRAMENTO -->
+    <div class="slide slide-cover" id="slide-17">
         <div class="slide-content" style="justify-content: center; align-items: center;">
             <h1 style="font-size: 4rem;">Obrigado!</h1>
             <p class="subtitle">Dúvidas?</p>
@@ -959,7 +959,7 @@ match = distancia < 0.6
 
 <script>
     let currentSlide = 1;
-    const totalSlides = 16;
+    const totalSlides = 17;
 
     function showSlide(n) {
         if (n < 1) n = 1;

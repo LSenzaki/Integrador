@@ -1,14 +1,14 @@
 # Image Preprocessing Feature
 
-## 📸 Automatic Image Resizing to 300x300px
+##  Automatic Image Resizing to 300x300px
 
 ### Overview
 All images uploaded for student registration are now automatically preprocessed to **300x300 pixels** before face encoding. This optimization provides:
 
-- ✅ **Consistent Performance**: All images are the same size
-- ✅ **Better Recognition**: Standardized input improves accuracy
-- ✅ **Faster Processing**: Smaller images process faster
-- ✅ **Reduced Memory**: Lower memory footprint
+-  **Consistent Performance**: All images are the same size
+-  **Better Recognition**: Standardized input improves accuracy
+-  **Faster Processing**: Smaller images process faster
+-  **Reduced Memory**: Lower memory footprint
 
 ---
 
@@ -100,19 +100,19 @@ TARGET_IMAGE_SIZE = (400, 400)
 ## Impact on Existing Features
 
 ### Student Registration (`/alunos/cadastrar`)
-- ✅ All uploaded photos automatically resized
-- ✅ Multi-photo registration still works
-- ✅ No changes needed in frontend
+-  All uploaded photos automatically resized
+-  Multi-photo registration still works
+-  No changes needed in frontend
 
 ### Face Recognition (`/alunos/reconhecer`)
-- ✅ Live camera captures preprocessed
-- ✅ Test mode also uses preprocessing
-- ✅ Consistent with registration data
+-  Live camera captures preprocessed
+-  Test mode also uses preprocessing
+-  Consistent with registration data
 
 ### Hybrid Recognition
-- ✅ Both face_recognition and DeepFace benefit
-- ✅ Faster processing overall
-- ✅ Better confidence scores
+-  Both face_recognition and DeepFace benefit
+-  Faster processing overall
+-  Better confidence scores
 
 ---
 
@@ -222,9 +222,9 @@ Extracts face encoding with optional preprocessing.
 ## Conclusion
 
 Image preprocessing to 300x300px is now **active by default** for all face recognition operations, providing:
-- ✅ Faster and more consistent performance
-- ✅ Better recognition accuracy
-- ✅ Lower memory and storage requirements
-- ✅ No changes needed to existing code
+-  Faster and more consistent performance
+-  Better recognition accuracy
+-  Lower memory and storage requirements
+-  No changes needed to existing code
 
-The system automatically handles all image formats and sizes, making it production-ready for real-world deployment! 🚀
+The system automatically handles all image formats and sizes, making it production-ready for real-world deployment! 

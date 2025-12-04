@@ -106,7 +106,7 @@ Supabase   Biblioteca  Rede Neural
 
 ## Segurança
 
-- ✅ CORS configurado
-- ✅ Validação de dados com Pydantic
-- ✅ Embeddings criptografados
-- ✅ Conexão segura com banco de dados
+-  CORS configurado
+-  Validação de dados com Pydantic
+-  Embeddings criptografados
+-  Conexão segura com banco de dados

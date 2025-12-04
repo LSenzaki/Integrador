@@ -34,12 +34,12 @@ No painel do projeto:
 
 No **Table Editor**, você deve ver:
 
-- ✅ `turmas` - Classes/Turmas
-- ✅ `professores` - Professores
-- ✅ `turmas_professores` - Relacionamento Many-to-Many
-- ✅ `alunos` - Alunos/Estudantes
-- ✅ `face_embeddings` - Embeddings faciais
-- ✅ `presencas` - Registros de presença
+-  `turmas` - Classes/Turmas
+-  `professores` - Professores
+-  `turmas_professores` - Relacionamento Many-to-Many
+-  `alunos` - Alunos/Estudantes
+-  `face_embeddings` - Embeddings faciais
+-  `presencas` - Registros de presença
 
 ## Schema do Banco de Dados
 

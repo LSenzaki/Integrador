@@ -55,7 +55,7 @@
   - OpenFace
   - DeepFace
   - ArcFace
-- **Encoding**: 512 dimensões (Facenet)
+- **Encoding**: 128 dimensões (Facenet)
 - **Vantagens**:
   - Alta precisão
   - Robusto a variações

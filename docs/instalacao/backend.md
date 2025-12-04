@@ -72,7 +72,7 @@ python test_connection.py
 
 Deve exibir:
 ```
-✅ Conexão com Supabase estabelecida com sucesso!
+ Conexão com Supabase estabelecida com sucesso!
 ```
 
 ## 6. Iniciar o Servidor

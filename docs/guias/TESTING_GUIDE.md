@@ -1,6 +1,6 @@
 # Testing Guide - Sistema de Chamada Automática
 
-## 🚀 Quick Start Testing
+##  Quick Start Testing
 
 Both servers are now running:
 - **Backend**: http://localhost:8000
@@ -9,9 +9,9 @@ Both servers are now running:
 
 ---
 
-## 📋 Test Sequence
+##  Test Sequence
 
-### 1️⃣ Setup Phase (Admin Role)
+### 1⃣ Setup Phase (Admin Role)
 
 #### Create Classes
 1. Click **Admin** tab
@@ -40,7 +40,7 @@ Both servers are now running:
 
 ---
 
-### 2️⃣ Professor Validation Phase
+### 2⃣ Professor Validation Phase
 
 #### Validate Students
 1. Switch to **Professor** tab
@@ -51,7 +51,7 @@ Both servers are now running:
 
 ---
 
-### 3️⃣ Attendance Testing (Student Role)
+### 3⃣ Attendance Testing (Student Role)
 
 #### Test Face Recognition (Test Mode)
 1. Switch to **Aluno** tab
@@ -86,7 +86,7 @@ Both servers are now running:
 
 ---
 
-### 4️⃣ Attendance Management (Professor Role)
+### 4⃣ Attendance Management (Professor Role)
 
 #### View Today's Attendance
 1. Switch to **Professor** tab
@@ -111,7 +111,7 @@ Both servers are now running:
 
 ---
 
-### 5️⃣ Advanced Admin Features
+### 5⃣ Advanced Admin Features
 
 #### Manage Student Details
 1. Switch to **Admin** tab
@@ -167,7 +167,7 @@ Both servers are now running:
 
 ---
 
-### 6️⃣ List and Search Features
+### 6⃣ List and Search Features
 
 #### Search Students
 1. Go to **Turmas e Alunos**
@@ -177,7 +177,7 @@ Both servers are now running:
 
 ---
 
-## 🧪 Edge Cases to Test
+##  Edge Cases to Test
 
 ### Recognition Edge Cases
 - [ ] No face in camera (should show error)
@@ -207,7 +207,7 @@ Both servers are now running:
 
 ---
 
-## 📊 Expected Backend Responses
+##  Expected Backend Responses
 
 ### Successful Recognition
 ```json
@@ -243,7 +243,7 @@ Both servers are now running:
 
 ---
 
-## ✅ Testing Checklist
+##  Testing Checklist
 
 ### Core Features
 - [ ] Class creation and deletion
@@ -286,21 +286,21 @@ Both servers are now running:
 
 ---
 
-## 🎯 Success Criteria
+##  Success Criteria
 
 All integrations are successful if:
-1. ✅ All CRUD operations work (Create, Read, Update, Delete)
-2. ✅ Face recognition correctly identifies registered students
-3. ✅ Entry/exit logic works automatically
-4. ✅ Professor validation workflow functions
-5. ✅ All admin features accessible and functional
-6. ✅ No console errors or broken API calls
-7. ✅ Data persists correctly in database
-8. ✅ UI provides clear feedback for all actions
+1.  All CRUD operations work (Create, Read, Update, Delete)
+2.  Face recognition correctly identifies registered students
+3.  Entry/exit logic works automatically
+4.  Professor validation workflow functions
+5.  All admin features accessible and functional
+6.  No console errors or broken API calls
+7.  Data persists correctly in database
+8.  UI provides clear feedback for all actions
 
 ---
 
-## 📝 Test Results Log
+##  Test Results Log
 
 Document your testing results:
 
@@ -333,6 +333,6 @@ Document your testing results:
 
 ---
 
-## 🎉 Happy Testing!
+##  Happy Testing!
 
 The system is fully integrated and ready for comprehensive testing. All backend endpoints have visual representations, and all features are accessible through the intuitive UI.
